@@ -1,0 +1,15 @@
+{
+    "name": "vitlabs/gui-core",
+    "description": "",
+    "authors": [
+		{
+			"name": "Matej Vitaz",
+			"email": "mspiderv@gmail.com"
+		}
+	],
+    "autoload": {
+        "psr-4": {
+            "Vitlabs\\GUICore\\": ""
+        }
+    }
+}
