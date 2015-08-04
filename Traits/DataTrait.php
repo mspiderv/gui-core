@@ -99,7 +99,7 @@ trait DataTrait {
 
 	public function getOrSet($variable, $value = null)
 	{
-		if ($value == null)
+		if ($value === null)
         {
             return $this->get($variable);
         }

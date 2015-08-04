@@ -34,6 +34,9 @@ class GUICoreServiceProvider extends ServiceProvider
         // Bind BasicElement implementation
         $this->app->bind('Vitlabs\GUICore\Contracts\Elements\BasicElementContract', 'Vitlabs\GUICore\Elements\BasicElement');
 
+        // Bind IDGenerator
+        $this->app->bind('Vitlabs\GUICore\Contracts\IDGeneratorContract', 'Vitlabs\GUICore\IDGenerator');
+
         // Bind generator implementation
         $this->app->bind('Vitlabs\GUICore\Contracts\Generator', config('gui-core.generatorImplementation'), true);
     }

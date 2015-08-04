@@ -14,7 +14,7 @@ trait ElementTrait {
     {
         //
     }
-    
+
     public function setGenerator(GeneratorContract $generator)
     {
         $this->generator = $generator;
@@ -31,12 +31,12 @@ trait ElementTrait {
     {
         return [];
     }
-    
+
     public function renderView($view, array $data)
     {
-        return View::make(config('gui-core.viewsGroup') . '::' . $view, $data)->render();
+        return View::make(config('gui-core.viewsHint') . '::' . $view, $data)->render();
     }
-    
+
     public function __toString()
     {
         return (string) $this->render();
@@ -50,7 +50,7 @@ trait ElementTrait {
 
     /*
      * Example: $text->toFooter($box)
-     */ 
+     */
     public function __call($method, $args = array())
     {
         /*

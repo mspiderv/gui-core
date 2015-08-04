@@ -94,7 +94,7 @@ abstract class AbstractGenerator implements GeneratorContract
             // Element contract does not exists. Let's create BasicElement.
             $element = $this->app->make('Vitlabs\GUICore\Contracts\Elements\BasicElementContract');
             $element->setView($viewName);
-            
+
             // Set args
             if (isset($args[0]))
             {
@@ -117,7 +117,7 @@ abstract class AbstractGenerator implements GeneratorContract
 
     protected function getAssetsPath()
     {
-        return config('gui-core.viewsGroup') . '/';
+        return config('gui-core.assetsFrontendPath') . '/';
     }
-    
+
 }

@@ -44,10 +44,7 @@ trait AttributesTrait {
 
 	public function removeAttribute($attribute)
 	{
-		if (isset($this->attributes[$attribute]))
-		{
-			unset($this->attributes[$attribute]);
-		}
+		unset($this->attributes[$attribute]);
 
 		return $this;
 	}
@@ -112,7 +109,7 @@ trait AttributesTrait {
 
     public function getOrSetAttribute($variable, $value = null)
 	{
-		if ($value == null)
+		if ($value === null)
         {
             return $this->getAttribute($variable);
         }

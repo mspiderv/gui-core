@@ -43,7 +43,7 @@ abstract class ImplementationServiceProvider extends ServiceProvider
 
         if ($viewPath != null)
         {
-            $this->loadViewsFrom($viewPath, config('gui-core.viewsGroup'));
+            $this->loadViewsFrom($viewPath, config('gui-core.viewsHint'));
         }
 
         // Publish assets
@@ -52,7 +52,7 @@ abstract class ImplementationServiceProvider extends ServiceProvider
         if ($assetsPath != null)
         {
             $this->publishes([
-                $assetsPath => config('gui-core.assetsPath'),
+                $assetsPath => config('gui-core.assetsBackendPath'),
             ], config('gui-core.publishesTag'));
         }
 
