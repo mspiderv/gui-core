@@ -11,14 +11,19 @@ trait AttributesTrait {
 		$this->attributes = $attributes;
 	}
 
-	public function attr($attribute, $value = null)
+	public function attr($attribute, $value = null, & $attributes = null)
 	{
-		return is_null($value) ? $this->getAttribute($attribute) : $this->setAttribute($attribute, $value);
+		return is_null($value) ? $this->getAttribute($attribute, $attributes) : $this->setAttribute($attribute, $value, $attributes);
 	}
 
-	public function setAttribute($attribute, $value)
+	public function setAttribute($attribute, $value, & $attributes = null)
 	{
-		$this->attributes[$attribute] = $value;
+        if (is_null($attributes))
+        {
+            $attributes = & $this->attributes;
+        }
+
+		$attributes[$attribute] = $value;
 
 		return $this;
 	}
@@ -42,9 +47,14 @@ trait AttributesTrait {
 		return $this;
 	}
 
-	public function getAttribute($attribute)
+	public function getAttribute($attribute, & $attributes = null)
 	{
-		return isset($this->attributes[$attribute]) ? $this->attributes[$attribute] : '';
+        if (is_null($attributes))
+        {
+            $attributes = & $this->attributes;
+        }
+
+		return isset($attributes[$attribute]) ? $attributes[$attribute] : '';
 	}
 
 	public function removeAttribute($attribute)
