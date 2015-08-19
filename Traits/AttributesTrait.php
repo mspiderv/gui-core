@@ -23,15 +23,20 @@ trait AttributesTrait {
 		return $this;
 	}
 
-	public function appendAttribute($attribute, $appendValue)
+	public function appendAttribute($attribute, $appendValue, & $attributes = null)
 	{
-		if (isset($this->attributes[$attribute]))
+        if (is_null($attributes))
+        {
+            $attributes = & $this->attributes;
+        }
+
+		if (isset($attributes[$attribute]))
 		{
-			$this->attributes[$attribute] .= $appendValue;
+			$attributes[$attribute] .= $appendValue;
 		}
 		else
 		{
-			$this->attributes[$attribute] = $appendValue;
+			$attributes[$attribute] = $appendValue;
 		}
 
 		return $this;
@@ -49,9 +54,14 @@ trait AttributesTrait {
 		return $this;
 	}
 
-	public function hasAttribute($attribute)
+	public function hasAttribute($attribute, & $attributes = null)
 	{
-		return isset($this->attributes[$attribute]);
+        if (is_null($attributes))
+        {
+            $attributes = & $this->attributes;
+        }
+
+		return isset($attributes[$attribute]);
 	}
 
 	public function getAttributes()
@@ -59,7 +69,7 @@ trait AttributesTrait {
 		return $this->attributes;
 	}
 
-	public function parseAttributes($withSpace = true, $attributes = null)
+	public function parseAttributes($withSpace = true, & $attributes = null)
 	{
 		$result = '';
 
@@ -76,9 +86,9 @@ trait AttributesTrait {
 		return ($withSpace) ? $result : substr($result, 1);
 	}
 
-	public function addClass($class)
+	public function addClass($class, & $attributes = null)
     {
-        $this->appendAttribute('class',  ($this->hasAttribute('class') ? ' ' : '') . $class);
+        $this->appendAttribute('class',  ($this->hasAttribute('class', $attributes) ? ' ' : '') . $class, $attributes);
 
         return $this;
     }
@@ -120,5 +130,5 @@ trait AttributesTrait {
             return $this;
         }
 	}
-    
+
 }

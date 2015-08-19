@@ -10,7 +10,10 @@ trait ContainerTrait {
 
 	public function __construct(array $container = [])
 	{
-		$this->container = $container;
+        foreach ($container as $element)
+        {
+            $this->add($element);
+        }
 	}
 
     public function add(ElementContract $e, $position = null)
