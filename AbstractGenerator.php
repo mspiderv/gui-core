@@ -107,7 +107,7 @@ abstract class AbstractGenerator implements GeneratorContract
         // We cant create element
         else
         {
-            throw new \Exception("Contract for element [$elementName] does not exists.");
+            throw new \Exception("Contract [$contract] for element [$elementName] does not exists.");
         }
 
         // Set generator
