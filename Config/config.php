@@ -46,6 +46,14 @@ return [
     | Example: App\Concrete\GUIGenerator
     |
     */
-	'generatorImplementation' => '',
+    'generatorImplementation' => '',
+    /*
+    |--------------------------------------------------------------------------
+    | Basic Element Enabled
+    |--------------------------------------------------------------------------
+    | Determines whether is it possible to create element without contract.
+    |
+    */
+    'basicElementEnabled' => false,
 
 ];

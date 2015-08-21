@@ -89,7 +89,9 @@ abstract class AbstractGenerator implements GeneratorContract
             // Create element instance
             $element = $this->app->make($contract, $args);
         }
-        else
+
+        // Lets try generate BasicElement
+        elseif(config('gui-core.basicElementEnabled'))
         {
             // Element contract does not exists. Let's create BasicElement.
             $element = $this->app->make('Vitlabs\GUICore\Contracts\Elements\BasicElementContract');
@@ -100,6 +102,12 @@ abstract class AbstractGenerator implements GeneratorContract
             {
                 $element->setMany($args[0]);
             }
+        }
+
+        // We cant create element
+        else
+        {
+            throw new \Exception("Contract for element [$elementName] does not exists.");
         }
 
         // Set generator
