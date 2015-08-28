@@ -6,6 +6,6 @@ use Vitlabs\GUICore\Contracts\Generator;
 
 interface AliasElement {
 
-	public function generateElement(Generator $generate);
+	function generateElement(Generator $generate);
 
 }

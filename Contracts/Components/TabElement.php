@@ -4,10 +4,10 @@ namespace Vitlabs\GUICore\Contracts\Components;
 
 interface TabElement {
 
-	public function getTabId();
+	function getTabId();
 
-    public function getTitle();
+    function getTitle();
 
-    public function getContent();
+    function getContent();
 
 }

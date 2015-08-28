@@ -7,12 +7,12 @@ use Closure;
 interface Heading
 {
 
-    public function __construct($title = '');
+    function __construct($title = '');
 
     // Get or set
-    public function title($title = null);
+    function title($title = null);
 
     // Get or set
-    public function attr($attribute, $value = null);
+    function attr($attribute, $value = null);
 
 }

@@ -7,10 +7,10 @@ use Closure;
 interface Menu
 {
 
-    public function heading($title = '');
+    function heading($title = '');
 
-    public function link($title = '', $href = '', $icon = '', Closure $closure = null);
+    function link($title = '', $href = '', $icon = '', Closure $closure = null);
 
-    public function getItems();
+    function getItems();
 
 }

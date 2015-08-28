@@ -6,20 +6,20 @@ use Vitlabs\GUICore\Contracts\Elements\ElementContract;
 
 interface ContainerElement {
 
-    public function add(ElementContract $e, $position = null);
+    function add(ElementContract $e, $position = null);
 
-    public function getAllElements();
+    function getAllElements();
 
-    public function getPositionElements($position = null);
+    function getPositionElements($position = null);
 
-    public function removeElements();
+    function removeElements();
 
-    public function removePositionElements($position = null);
+    function removePositionElements($position = null);
 
-    public function getPositions();
+    function getPositions();
 
-    public function renderElements(array $elements);
+    function renderElements(array $elements);
 
-    public function getDefaultPositionName();
+    function getDefaultPositionName();
 
 }

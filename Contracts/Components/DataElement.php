@@ -4,28 +4,28 @@ namespace Vitlabs\GUICore\Contracts\Components;
 
 interface DataElement {
 
-	public function setMany(array $data);
+	function setMany(array $data);
 
-	public function set($variable, $value);
+	function set($variable, $value);
 
-	public function __set($variable, $value);
+	function __set($variable, $value);
 
-	public function getMany(array $variables);
+	function getMany(array $variables);
 
-	public function get($variable);
+	function get($variable);
 
-	public function __get($variable);
+	function __get($variable);
 
-	public function getData();
+	function getData();
 
-	public function has($variable);
+	function has($variable);
 
-	public function setOptionals(array $variables);
+	function setOptionals(array $variables);
 
-	public function setOptional($variable);
+	function setOptional($variable);
 
-	public function setDefault($variable, $value);
+	function setDefault($variable, $value);
 
-	public function getOrSet($variable, $value = null);
+	function getOrSet($variable, $value = null);
 
 }

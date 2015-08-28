@@ -7,25 +7,25 @@ use Closure;
 interface Item
 {
 
-    public function __construct($title = '', $href = '', $icon = '', Closure $closure = null);
+    function __construct($title = '', $href = '', $icon = '', Closure $closure = null);
 
     // Get or set
-    public function title($title = null);
+    function title($title = null);
 
     // Get or set
-    public function href($href = null);
+    function href($href = null);
 
     // Get or set
-    public function icon($icon = null);
+    function icon($icon = null);
 
     // Get or set
-    public function active($active = null);
+    function active($active = null);
 
     // Get or set
-    public function attr($attribute, $value = null);
+    function attr($attribute, $value = null);
 
-    public function submenu(Closure $closure);
+    function submenu(Closure $closure);
 
-    public function getSubmenuInstance();
+    function getSubmenuInstance();
 
 }

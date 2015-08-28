@@ -4,12 +4,12 @@ namespace Vitlabs\GUICore\Contracts\Components;
 
 interface CollapsibleElement {
 
-	public function getCollapsibleId();
+	function getCollapsibleId();
 
-    public function getTitle();
+    function getTitle();
 
-    public function getContent();
+    function getContent();
 
-    public function getState();
+    function getState();
 
 }

@@ -7,23 +7,23 @@ use Vitlabs\GUICore\Contracts\Components\ContainerElement;
 
 interface ElementContract {
 
-	public function postConstruct();
+	function postConstruct();
 
-	public function setGenerator(GeneratorContract $generator);
+	function setGenerator(GeneratorContract $generator);
 
-	public function getGenerator();
+	function getGenerator();
 
-	public function needResources();
+	function needResources();
 
-	public function to(ContainerElement $element, $position = null);
+	function to(ContainerElement $element, $position = null);
 
-    public function render();
+    function render();
 
-	protected function getMenu($menu);
+	function getMenu($menu);
 
 	/*
 	 * Example: $text->toFooter($box)
 	 */
-	public function __call($method, $args = array());
+	function __call($method, $args = array());
 
 }

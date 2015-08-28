@@ -7,26 +7,26 @@ interface AttributesElement {
 	/**
 	 * Kombinuje getter getAttribute a setter setAttribute.
 	 */
-    public function attr($attribute, $value = null);
+    function attr($attribute, $value = null);
 
-    public function setAttribute($attribute, $value);
+    function setAttribute($attribute, $value);
 
-    public function appendAttribute($attribute, $appendValue, & $attributes = null);
+    function appendAttribute($attribute, $appendValue, & $attributes = null);
 
-    public function getAttribute($attribute);
+    function getAttribute($attribute);
 
-    public function removeAttribute($attribute);
+    function removeAttribute($attribute);
 
-    public function hasAttribute($attribute, & $attributes = null);
+    function hasAttribute($attribute, & $attributes = null);
 
-    public function getAttributes();
+    function getAttributes();
 
-    public function parseAttributes($withSpace = true, & $attributes = null);
+    function parseAttributes($withSpace = true, & $attributes = null);
 
-    public function addClass($class, & $attributes = null);
+    function addClass($class, & $attributes = null);
 
-    public function removeClass($class);
+    function removeClass($class);
 
-    public function getOrSetAttribute($variable, $value = null);
+    function getOrSetAttribute($variable, $value = null);
 
 }

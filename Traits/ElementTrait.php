@@ -49,7 +49,7 @@ trait ElementTrait {
         return $this;
     }
 
-    protected function getMenu($menu)
+    public function getMenu($menu)
     {
         if ( ! isset($this->menus[$menu]))
         {

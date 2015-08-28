@@ -9,6 +9,6 @@ interface PlaceholderElement {
 	 * @param string $placeholder
 	 * @return value/string
 	 */
-	public function placeholder($placeholder);
+	function placeholder($placeholder);
 
 }
