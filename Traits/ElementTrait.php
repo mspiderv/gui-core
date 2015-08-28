@@ -9,6 +9,7 @@ use Vitlabs\GUICore\Contracts\Components\ContainerElement;
 trait ElementTrait {
 
     protected $generator;
+    protected $menus = [];
 
     public function postConstruct()
     {
@@ -46,6 +47,16 @@ trait ElementTrait {
     {
         $element->add($this, $position);
         return $this;
+    }
+
+    protected function getMenu($menu)
+    {
+        if ( ! isset($this->menus[$menu]))
+        {
+            $this->menus[$menu] = app('Vitlabs\GUICore\Contracts\Menu\Menu');
+        }
+
+        return $this->menus[$menu];
     }
 
     /*
