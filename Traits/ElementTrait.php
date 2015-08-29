@@ -16,6 +16,11 @@ trait ElementTrait {
         //
     }
 
+    public function getViewsFolder()
+    {
+        return '';
+    }
+
     public function setGenerator(GeneratorContract $generator)
     {
         $this->generator = $generator;
@@ -35,7 +40,14 @@ trait ElementTrait {
 
     public function renderView($view, array $data)
     {
-        return View::make(config('gui-core.viewsHint') . '::' . $view, $data)->render();
+        $folder = $this->getViewsFolder();
+
+        if (strlen($folder) > 0)
+        {
+            $folder = $folder . '.';
+        }
+
+        return View::make(config('gui-core.viewsHint') . '::' . $folder . $view, $data)->render();
     }
 
     public function __toString()
