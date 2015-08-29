@@ -2,11 +2,11 @@
 
 namespace Vitlabs\GUICore\Menu;
 
-use Vitlabs\GUICore\Contracts\Menu\Menu;
+use Vitlabs\GUICore\Contracts\Menu\MenuContract;
 use Vitlabs\GUICore\Menu\Heading;
 use Vitlabs\GUICore\Menu\Item;
 
-class Menu implements Menu
+class Menu implements MenuContract
 {
 
     protected $items = [];

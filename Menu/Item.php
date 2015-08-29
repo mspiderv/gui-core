@@ -2,12 +2,11 @@
 
 namespace Vitlabs\GUICore\Menu;
 
-use Vitlabs\GUICore\Contracts\Menu\Item;
+use Vitlabs\GUICore\Contracts\Menu\ItemContract;
 use Vitlabs\GUICore\Traits\AttributesTrait;
 use Vitlabs\GUICore\Traits\DataTrait;
-use Vitlabs\GUICore\Menu\Menu;
 
-class Item implements Item
+class Item implements ItemContract
 {
 
     use AttributesTrait, DataTrait;
@@ -68,7 +67,7 @@ class Item implements Item
     {
         if ($this->submenuInstance == null)
         {
-            $this->submenuInstance = new Menu;
+            $this->submenuInstance = app('Vitlabs\GUICore\Contracts\Menu\MenuContract');
         }
 
         return $this->submenuInstance;

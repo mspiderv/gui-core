@@ -2,10 +2,10 @@
 
 namespace Vitlabs\GUICore\Menu;
 
-use Vitlabs\GUICore\Contracts\Menu\Heading;
+use Vitlabs\GUICore\Contracts\Menu\HeadingContract;
 use Vitlabs\GUICore\Traits\AttributesTrait;
 
-class Heading implements Heading
+class Heading implements HeadingContract
 {
 
     use AttributesTrait;

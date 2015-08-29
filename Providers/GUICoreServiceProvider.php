@@ -38,8 +38,8 @@ class GUICoreServiceProvider extends ServiceProvider
         $this->app->bind('Vitlabs\GUICore\Contracts\Generator', config('gui-core.generatorImplementation'), true);
 
         // Bind menu implementations
-        $this->app->bind('Vitlabs\GUICore\Contracts\Menu\Heading', 'Vitlabs\GUICore\Menu\Heading');
-        $this->app->bind('Vitlabs\GUICore\Contracts\Menu\Item', 'Vitlabs\GUICore\Menu\Item');
-        $this->app->bind('Vitlabs\GUICore\Contracts\Menu\Menu', 'Vitlabs\GUICore\Menu\Menu');
+        $this->app->bind('Vitlabs\GUICore\Contracts\Menu\HeadingContract', 'Vitlabs\GUICore\Menu\Heading');
+        $this->app->bind('Vitlabs\GUICore\Contracts\Menu\ItemContract', 'Vitlabs\GUICore\Menu\Item');
+        $this->app->bind('Vitlabs\GUICore\Contracts\Menu\MenuContract', 'Vitlabs\GUICore\Menu\Menu');
     }
 }

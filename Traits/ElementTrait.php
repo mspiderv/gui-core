@@ -53,7 +53,7 @@ trait ElementTrait {
     {
         if ( ! isset($this->menus[$menu]))
         {
-            $this->menus[$menu] = app('Vitlabs\GUICore\Contracts\Menu\Menu');
+            $this->menus[$menu] = app('Vitlabs\GUICore\Contracts\Menu\MenuContract');
         }
 
         return $this->menus[$menu];
