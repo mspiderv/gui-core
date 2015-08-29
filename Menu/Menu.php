@@ -2,6 +2,7 @@
 
 namespace Vitlabs\GUICore\Menu;
 
+use Closure;
 use Vitlabs\GUICore\Contracts\Menu\MenuContract;
 use Vitlabs\GUICore\Menu\Heading;
 use Vitlabs\GUICore\Menu\Item;
@@ -13,16 +14,20 @@ class Menu implements MenuContract
 
     public function heading($title = '')
     {
-        $this->items[] = new Heading($title);
+        $heading = new Heading($title);
 
-        return $this;
+        $this->items[] = $heading;
+
+        return $heading;
     }
 
     public function link($title = '', $href = '', $icon = '', Closure $closure = null)
     {
-        $this->items[] = new Item($title, $href, $icon, $closure);
+        $link = new Link($title, $href, $icon, $closure);
 
-        return $this;
+        $this->items[] = $link;
+
+        return $link;
     }
 
     public function getItems()
