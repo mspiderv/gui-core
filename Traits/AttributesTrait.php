@@ -110,6 +110,12 @@ trait AttributesTrait {
 
     public function removeClass($class)
     {
+        // There are no classes. We are done.
+        if ( ! isset($this->attributes['class']))
+        {
+            return $this;
+        }
+
     	// Trim first
     	$this->attributes['class'] = trim($this->attributes['class']);
 
