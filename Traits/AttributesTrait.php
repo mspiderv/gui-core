@@ -7,9 +7,9 @@ trait AttributesTrait {
 	protected $attributes = [];
 
 	public function __construct(array $attributes = [])
-	{
-		$this->attributes = $attributes;
-	}
+    {
+        $this->setAttributes($attributes);
+    }
 
 	public function attr($attribute, $value = null, & $attributes = null)
 	{
@@ -27,6 +27,11 @@ trait AttributesTrait {
 
 		return $this;
 	}
+
+    public function setAttributes(array $attributes = [])
+    {
+        $this->attributes = array_merge($this->attributes, $attributes);
+    }
 
 	public function appendAttribute($attribute, $appendValue, & $attributes = null)
 	{

@@ -23,7 +23,7 @@ class Link implements LinkContract
 
         if ($closure !== null)
         {
-            $this->submenu($closure);
+            $this->sub($closure);
         }
     }
 
@@ -73,7 +73,7 @@ class Link implements LinkContract
         return ($this->submenuInstance != null && count($this->getSubmenuInstance()) > 0);
     }
 
-    public function submenu(Closure $closure)
+    public function sub(Closure $closure)
     {
         return $closure($this->getSubmenuInstance());
     }

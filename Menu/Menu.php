@@ -4,17 +4,24 @@ namespace Vitlabs\GUICore\Menu;
 
 use Closure;
 use Vitlabs\GUICore\Contracts\Menu\MenuContract;
-use Vitlabs\GUICore\Menu\Heading;
-use Vitlabs\GUICore\Menu\Item;
 
 class Menu implements MenuContract
 {
 
     protected $items = [];
 
+    public function divider()
+    {
+        $divider = app('Vitlabs\GUICore\Contracts\Menu\DividerContract');
+
+        $this->items[] = $divider;
+
+        return $divider;
+    }
+
     public function heading($title = '')
     {
-        $heading = new Heading($title);
+        $heading = app('Vitlabs\GUICore\Contracts\Menu\HeadingContract', [$title]);
 
         $this->items[] = $heading;
 
@@ -23,7 +30,7 @@ class Menu implements MenuContract
 
     public function link($title = '', $href = '', $icon = '', Closure $closure = null)
     {
-        $link = new Link($title, $href, $icon, $closure);
+        $link = app('Vitlabs\GUICore\Contracts\Menu\LinkContract', [$title, $href, $icon, $closure]);
 
         $this->items[] = $link;
 

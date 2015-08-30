@@ -3,8 +3,9 @@
 namespace Vitlabs\GUICore\Contracts\Menu;
 
 use Closure;
+use Vitlabs\GUICore\Contracts\Components\AttributesElement;
 
-interface LinkContract
+interface LinkContract extends AttributesElement
 {
 
     function __construct($title = '', $href = '', $icon = '', Closure $closure = null);
@@ -26,10 +27,7 @@ interface LinkContract
 
     function hasSubmenu();
 
-    // Get or set
-    function attr($attribute, $value = null);
-
-    function submenu(Closure $closure);
+    function sub(Closure $closure);
 
     // Return MenuContract object
     function getSubmenuInstance();

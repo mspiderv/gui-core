@@ -8,6 +8,9 @@ use Countable;
 interface MenuContract extends Countable
 {
 
+    // Return DividerContract object
+    function divider();
+
     // Return HeadingContract object
     function heading($title = '');
 

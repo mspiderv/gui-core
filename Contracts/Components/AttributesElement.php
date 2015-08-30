@@ -11,6 +11,8 @@ interface AttributesElement {
 
     function setAttribute($attribute, $value);
 
+    function setAttributes(array $attributes = []);
+
     function appendAttribute($attribute, $appendValue, & $attributes = null);
 
     function getAttribute($attribute);
