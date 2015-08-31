@@ -26,7 +26,7 @@ class GUICoreServiceProvider extends ServiceProvider
         // Load config
         $this->publishes([
             __DIR__ . '/../Config/config.php' => config_path('gui-core.php'),
-        ]);
+        ], config('gui-core.publishesTag'));
         $this->mergeConfigFrom(
             __DIR__ . '/../Config/config.php', 'gui-core'
         );

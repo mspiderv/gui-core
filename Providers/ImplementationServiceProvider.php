@@ -61,7 +61,7 @@ abstract class ImplementationServiceProvider extends ServiceProvider
         {
             $this->publishes([
                 $file => config_path($config . '.php'),
-            ]);
+            ], config('gui-core.publishesTag'));
             $this->mergeConfigFrom(
                 $file, $config
             );

@@ -37,7 +37,7 @@ return [
     | "vendor:publish --tag={SOME_TAG}"
     |
     */
-	'publishesTag' => 'public',
+	'publishesTag' => 'gui',
 
     /*
     |--------------------------------------------------------------------------
@@ -47,6 +47,7 @@ return [
     |
     */
     'generatorImplementation' => '',
+
     /*
     |--------------------------------------------------------------------------
     | Basic Element Enabled

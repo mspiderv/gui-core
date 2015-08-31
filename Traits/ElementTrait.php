@@ -38,7 +38,7 @@ trait ElementTrait {
         return [];
     }
 
-    public function renderView($view, array $data)
+    public function renderView($view, array $data = [])
     {
         $folder = $this->getViewsFolder();
 

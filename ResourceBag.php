@@ -132,7 +132,7 @@ class ResourceBag {
                 $css = $this->assetsPath . $css;
             }
 
-            $result .= '<link rel="stylesheet" type="text/css" href="' . $css . '" />' . PHP_EOL;
+            $result .= '<link rel="stylesheet" type="text/css" href="' . asset($css) . '" />' . PHP_EOL;
         }
 
         return $result;
@@ -149,7 +149,7 @@ class ResourceBag {
                 $js = $this->assetsPath . $js;
             }
 
-            $result .= '<script src="' . $js . '" type="text/javascript"></script>' . PHP_EOL;
+            $result .= '<script src="' . asset($js) . '" type="text/javascript"></script>' . PHP_EOL;
         }
 
         return $result;
@@ -209,7 +209,7 @@ class ResourceBag {
 
     public function isPathAbsolute($path)
     {
-        return (substr($path, 0, 7) == 'http://' || substr($path, 0, 8) == 'https://' || substr($path, 0, 7) == 'file://');
+        return (substr($path, 0, 1) == '/' || substr($path, 0, 7) == 'http://' || substr($path, 0, 8) == 'https://' || substr($path, 0, 7) == 'file://');
     }
 
     public function isPathRelative($path)
