@@ -69,7 +69,7 @@ abstract class AbstractGenerator implements GeneratorContract
         return $this->resourceBag;
     }
 
-	protected function generate($elementName, array $args)
+	public function generate($elementName, array $args = [])
 	{
         // Class name
         $className = $this->makeClassName($elementName);
@@ -113,11 +113,14 @@ abstract class AbstractGenerator implements GeneratorContract
         // Set generator
         $element->setGenerator($this);
 
-        // Add element resources
-        $this->resourceBag->add($element->needResources());
-
         // Call post construct
         $element->postConstruct();
+
+        // Set assets path prefix
+        $pathPrefix = 'vendor/' . $element->getPackageName(). '/';
+
+        // Add element resources
+        $this->resourceBag->add($element->needResources(), $pathPrefix);
 
         // Return element
         return $element;

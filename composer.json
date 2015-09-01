@@ -1,6 +1,6 @@
 {
     "name": "vitlabs/gui-core",
-    "description": "",
+    "description": "Core of GUI generation.",
     "authors": [
 		{
 			"name": "Matej Vitaz",

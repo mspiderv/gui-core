@@ -7,90 +7,115 @@ class ResourceBag {
     protected $js = [];
     protected $css = [];
     protected $config = [];
-    protected $assetsPath;
+    protected $variables = [];
+    protected $url = null;
 
-    public function __construct($assetsPath)
+    public function __construct()
     {
-        $this->assetsPath = $assetsPath;
+        $this->url = app('url');
     }
 
-    public function setAssetsPath($assetsPath)
-    {
-        $this->assetsPath = $assetsPath;
-
-        return $this;
-    }
-
-    public function getAssetsPath()
-    {
-        return $this->assetsPath;
-    }
-
-    public function add(array $resources)
+    public function add(array $resources, $pathPrefix = '')
     {
         // JS
         if (isset($resources['js']))
         {
-            $this->js = array_unique(array_merge($this->js, $resources['js']));
+            foreach ($resources['js'] as $js) $this->addJS($js, 'after', $pathPrefix);
         }
 
         if (isset($resources['js-before']))
         {
-            $this->js = array_unique(array_merge($resources['js-before'], $this->js));
+            foreach ($resources['js-before'] as $js) $this->addJS($js, 'before', $pathPrefix);
         }
 
         // CSS
         if (isset($resources['css']))
         {
-            $this->css = array_unique(array_merge($this->css, $resources['css']));
+            foreach ($resources['css'] as $css) $this->addCSS($css, 'after', $pathPrefix);
         }
 
         if (isset($resources['css-before']))
         {
-            $this->css = array_unique(array_merge($resources['css-before'], $this->css));
+            foreach ($resources['css-before'] as $css) $this->addCSS($css, 'before', $pathPrefix);
         }
 
         // Config
         if (isset($resources['config']))
         {
-            $this->config = array_unique(array_merge($this->config, $resources['config']));
+            foreach ($resources['config'] as $configLine => $key) $this->addConfig($configLine, $key);
+        }
+
+        // Variables
+        if (isset($resources['variables']))
+        {
+            foreach ($resources['variables'] as $variable => $value) $this->addVariable($variable, $value);
         }
 
         return $this;
     }
 
-    public function addJS($path)
+    public function addJS($path, $place = 'after', $pathPrefix = '')
     {
-        if ( ! $this->hasJS($path))
+        $path = $this->parsePath($path, $pathPrefix);
+
+        if ($this->hasJS($path))
+        {
+            return $this;
+        }
+
+        if ($place == 'after')
         {
             $this->js[] = $path;
         }
 
+        elseif ($place == 'before')
+        {
+            array_unshift($this->js, $path);
+        }
+
         return $this;
     }
 
-    public function addCSS($path)
+    public function addCSS($path, $place = 'after', $pathPrefix = '')
     {
-        if ( ! $this->hasCSS($path))
+        $path = $this->parsePath($path, $pathPrefix);
+
+        if ($this->hasCSS($path))
+        {
+            return $this;
+        }
+
+        if ($place == 'after')
         {
             $this->css[] = $path;
         }
 
-        return $this;
-    }
-
-    public function addConfig($configKey)
-    {
-        if ( ! $this->hasConfig($configKey))
+        elseif ($place == 'before')
         {
-            $this->config[] = $configKey;
+            array_unshift($this->css, $path);
         }
 
         return $this;
     }
 
-    public function removeJS($path)
+    public function addConfig($configLine, $key)
     {
+        $this->config[$key] = config($configLine);
+
+        return $this;
+    }
+
+    public function addVariable($variable, $value)
+    {
+        $this->variables[$variable] = $value;
+
+        return $this;
+    }
+
+    public function removeJS($path, $pathPrefix = '')
+    {
+        $path = $this->parsePath($path, $pathPrefix);
+
         if (($key = array_search($path, $this->js)) !== false) {
             unset($this->js[$key]);
         }
@@ -98,8 +123,10 @@ class ResourceBag {
         return $this;
     }
 
-    public function removeCSS($path)
+    public function removeCSS($path, $pathPrefix = '')
     {
+        $path = $this->parsePath($path, $pathPrefix);
+
         if (($key = array_search($path, $this->css)) !== false) {
             unset($this->css[$key]);
         }
@@ -107,10 +134,21 @@ class ResourceBag {
         return $this;
     }
 
-    public function removeConfig($configKey)
+    public function removeConfig($key)
     {
-        if (($key = array_search($configKey, $this->config)) !== false) {
+        if (isset($this->config[$key]))
+        {
             unset($this->config[$key]);
+        }
+
+        return $this;
+    }
+
+    public function removeVariable($variable)
+    {
+        if (isset($this->variables[$variable]))
+        {
+            unset($this->variables[$variable]);
         }
 
         return $this;
@@ -127,12 +165,7 @@ class ResourceBag {
 
         foreach ($this->css as $css)
         {
-            if ($this->isPathRelative($css))
-            {
-                $css = $this->assetsPath . $css;
-            }
-
-            $result .= '<link rel="stylesheet" type="text/css" href="' . asset($css) . '" />' . PHP_EOL;
+            $result .= '<link rel="stylesheet" type="text/css" href="' . $css . '" />' . PHP_EOL;
         }
 
         return $result;
@@ -144,12 +177,7 @@ class ResourceBag {
 
         foreach ($this->js as $js)
         {
-            if ( ! $this->isPathAbsolute($js))
-            {
-                $js = $this->assetsPath . $js;
-            }
-
-            $result .= '<script src="' . asset($js) . '" type="text/javascript"></script>' . PHP_EOL;
+            $result .= '<script src="' . $js . '" type="text/javascript"></script>' . PHP_EOL;
         }
 
         return $result;
@@ -167,19 +195,27 @@ class ResourceBag {
 
     public function getJSONConfig()
     {
-        $result = [];
-
-        foreach ($this->config as $key)
-        {
-            $result[$key] = config($key);
-        }
-
-        return json_encode($result);
+        return json_encode($this->config);
     }
 
     public function getParsedConfig()
     {
         return '<script>window.cfg=' . $this->getJSONConfig() . ';</script>';
+    }
+
+    public function getVariables()
+    {
+        return $this->variables;
+    }
+
+    public function getJSONVariables()
+    {
+        return json_encode($this->variables);
+    }
+
+    public function getParsedVariables()
+    {
+        return '<script>window.variables=' . $this->getJSONVariables() . ';</script>';
     }
 
     public function hasJS($path)
@@ -197,24 +233,46 @@ class ResourceBag {
         return array_search($configKey, $this->config) !== false;
     }
 
+    public function hasVariable($variable)
+    {
+        return (isset($this->variables[$variable]));
+    }
+
     public function getAll()
     {
         return [
             'css' => $this->css,
             'js' => $this->js,
             'config' => $this->config,
-            'JSONConfig' => $this->getJSONConfig()
+            'JSONConfig' => $this->getJSONConfig(),
+            'variables' => $this->getJSONVariables()
         ];
     }
 
-    public function isPathAbsolute($path)
+    protected function isPathAbsolute($path)
     {
-        return (substr($path, 0, 1) == '/' || substr($path, 0, 7) == 'http://' || substr($path, 0, 8) == 'https://' || substr($path, 0, 7) == 'file://');
+        return $this->url->isValidUrl($path);
     }
 
-    public function isPathRelative($path)
+    protected function parsePath($path, $pathPrefix = '')
     {
-        return (! $this->isPathAbsolute($path));
+        if ($this->isPathAbsolute($path))
+        {
+            return $path;
+        }
+
+        else
+        {
+            if (substr($path, 0, 1) == '~')
+            {
+                return asset($pathPrefix . substr($path, 1));
+            }
+
+            else
+            {
+                return asset($path);
+            }
+        }
     }
 
 }

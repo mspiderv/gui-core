@@ -97,7 +97,7 @@ abstract class AbstractMenuPresenter implements MenuPresenterContract
 
     protected function renderView($view, array $data)
     {
-        return View::make(config('gui-core.viewsHint') . '::' . $this->viewsPrefix . $view, $data)->render();
+        return View::make($this->getPackageName() . '::' . $this->viewsPrefix . $view, $data)->render();
     }
 
     public function presentSubmenu(MenuContract $submenu)

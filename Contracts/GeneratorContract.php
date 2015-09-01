@@ -6,20 +6,22 @@ use Illuminate\Contracts\Foundation\Application;
 
 interface GeneratorContract {
 
-	public function __construct(Application $app);
+	function __construct(Application $app);
 
-	public function getResourceBag();
+	function getResourceBag();
 
-	public function registerElement($element, $contractNamespace, $implementationNamespace);
+	function registerElement($element, $contractNamespace, $implementationNamespace);
 
-	public function getElementContract($element);
+	function getElementContract($element);
 
-	public function isElementRegistered($element);
+	function isElementRegistered($element);
 
-	public function makeClassName($element);
+	function makeClassName($element);
 
-	public function makeElementKey($element);
+	function makeElementKey($element);
 
-	public function makeViewName($element);
+	function makeViewName($element);
+
+    function generate($elementName, array $args = []);
 
 }

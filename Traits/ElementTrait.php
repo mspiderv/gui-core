@@ -47,7 +47,7 @@ trait ElementTrait {
             $folder = $folder . '.';
         }
 
-        return View::make(config('gui-core.viewsHint') . '::' . $folder . $view, $data)->render();
+        return View::make($this->getPackageName() . '::' . $folder . $view, $data)->render();
     }
 
     public function __toString()
@@ -69,6 +69,32 @@ trait ElementTrait {
         }
 
         return $this->menus[$menu];
+    }
+
+    /**
+     * Get the specified configuration value.
+     *
+     * @param  string  $key
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public function config($key = null, $default = null)
+    {
+        return app('config')->get($this->getPackageName() . '.' . $key, $default);
+    }
+
+    /**
+     * Translate the given message.
+     *
+     * @param  string  $id
+     * @param  array   $parameters
+     * @param  string  $domain
+     * @param  string  $locale
+     * @return string
+     */
+    public function trans($id = null, $parameters = [], $domain = 'messages', $locale = null)
+    {
+        return app('translator')->trans($this->getPackageName() . '::' . $id, $parameters, $domain, $locale);
     }
 
     /*

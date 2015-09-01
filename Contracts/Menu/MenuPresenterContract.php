@@ -7,6 +7,8 @@ use Vitlabs\GUICore\Contracts\Menu\MenuContract;
 interface MenuPresenterContract
 {
 
+    function getPackageName();
+
     function present(MenuContract $menu);
 
     function presentSubmenu(MenuContract $submenu);

@@ -3,10 +3,16 @@
 namespace Vitlabs\GUICore\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Vitlabs\GUICore\Contracts\GeneratorContract;
 
 abstract class ImplementationServiceProvider extends ServiceProvider
 {
-    protected $viewsPath = null;
+
+    protected $contractsNamespace = null;
+
+    protected $implementationsNamespace = null;
+
+    protected $bindElements = null;
 
     /**
      * Bootstrap the application services.
@@ -15,10 +21,19 @@ abstract class ImplementationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Register translation paths
-        foreach ($this->loadTranslations() as $dir => $hint)
+        // Get package name
+        $package = $this->getPackageName();
+
+        // Register translation files
+        foreach ($this->translationDirs() as $dir)
         {
-            $this->loadTranslationsFrom($dir, $hint);
+            // Publish translation files
+            $this->publishes([
+                $dir => base_path('resources/lang/vendor/' . $package),
+            ]);
+
+            // Register translation paths
+            $this->loadTranslationsFrom($dir, $package);
         }
     }
 
@@ -29,63 +44,86 @@ abstract class ImplementationServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Get package name
+        $package = $this->getPackageName();
+
         // Get generator
         $generator = $this->app->make('Vitlabs\GUICore\Contracts\Generator');
 
-        // Register elements
-        foreach ($this->bindElements as $element)
+        // Try to register elements
+        if (is_array($this->bindElements) && $this->contractsNamespace != null && $this->implementationsNamespace != null)
         {
-            $generator->registerElement($element, $this->contractsNamespace, $this->implementationsNamespace);
+            foreach ($this->bindElements as $element)
+            {
+                $generator->registerElement($element, $this->contractsNamespace, $this->implementationsNamespace);
+            }
         }
 
-        // Register view path
-        $viewPath = $this->getViewPath();
+        // Register other elements
+        $this->registerElements($generator);
 
-        if ($viewPath != null)
+        // Register assets
+        foreach ($this->assetDirs() as $dir)
         {
-            $this->loadViewsFrom($viewPath, config('gui-core.viewsHint'));
-        }
-
-        // Publish assets
-        $assetsPath = $this->getAssetsPath();
-
-        if ($assetsPath != null)
-        {
+            // Publish assets
             $this->publishes([
-                $assetsPath => config('gui-core.assetsBackendPath'),
-            ], config('gui-core.publishesTag'));
+                $dir => public_path('vendor/' . $package),
+            ], 'public');
         }
 
-        // Publish config files
-        foreach ($this->publishConfig() as $file => $config)
+        // Register configuration files
+        foreach ($this->configFiles() as $file)
         {
+            // Publish configuration file
             $this->publishes([
-                $file => config_path($config . '.php'),
-            ], config('gui-core.publishesTag'));
+                $file => config_path(basename($file)),
+            ], 'config');
+
+            // Merge configuration file
             $this->mergeConfigFrom(
-                $file, $config
+                $file, basename($file, '.php')
             );
         }
+
+        // Register views
+        foreach ($this->viewDirs() as $dir)
+        {
+            // Publish views
+            $this->publishes([
+                $dir => base_path('resources/views/vendor/' . $package),
+            ], 'views');
+
+            // Register view paths
+            $this->loadViewsFrom($dir, $package);
+        }
+
     }
 
-    protected function getViewPath()
+    protected function registerElements(GeneratorContract $generator)
     {
-        return null;
+        //
     }
 
-    protected function getAssetsPath()
-    {
-        return null;
-    }
-
-    protected function publishConfig()
+    protected function translationDirs()
     {
         return [];
     }
 
-    protected function loadTranslations()
+    protected function assetDirs()
     {
         return [];
     }
+
+    protected function configFiles()
+    {
+        return [];
+    }
+
+    protected function viewDirs()
+    {
+        return [];
+    }
+
+    abstract protected function getPackageName();
 
 }

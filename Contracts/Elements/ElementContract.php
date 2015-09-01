@@ -21,6 +21,28 @@ interface ElementContract {
 
 	function getMenu($menu);
 
+    function getPackageName();
+
+    /**
+     * Get the specified configuration value.
+     *
+     * @param  string  $key
+     * @param  mixed  $default
+     * @return mixed
+     */
+    function config($key = null, $default = null);
+
+    /**
+     * Translate the given message.
+     *
+     * @param  string  $id
+     * @param  array   $parameters
+     * @param  string  $domain
+     * @param  string  $locale
+     * @return string
+     */
+    function trans($id = null, $parameters = [], $domain = 'messages', $locale = null);
+
 	/*
 	 * Example: $text->toFooter($box)
 	 */
