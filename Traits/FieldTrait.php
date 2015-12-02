@@ -9,12 +9,12 @@ trait FieldTrait {
         //
     }
 
-	/**
+    /**
      * Get/set element name.
      * @param  string $name
      * @return value/$this
      */
-    public function name($name)
+    public function name($name = null)
     {
         return $this->getOrSet('name', $name);
     }
@@ -24,7 +24,7 @@ trait FieldTrait {
      * @param  string $value
      * @return value/$this
      */
-    public function value($value)
+    public function value($value = null)
     {
         return $this->getOrSet('value', $value);
     }
@@ -34,7 +34,7 @@ trait FieldTrait {
      * @param  string $id
      * @return value/$this
      */
-    public function id($id)
+    public function id($id = null)
     {
         return $this->getOrSetAttribute('id', $id);
     }

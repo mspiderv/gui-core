@@ -63,11 +63,24 @@ abstract class ImplementationServiceProvider extends ServiceProvider
         $this->registerElements($generator);
 
         // Register assets
-        foreach ($this->assetDirs() as $dir)
+        foreach ($this->assetDirs() as $dir => $target)
         {
+            // Target is not set
+            if (is_numeric($dir))
+            {
+                $dir = $target;
+                $target = public_path('vendor/' . $package);
+            }
+
+            // Target is set
+            else
+            {
+                $target = public_path('vendor/' . $package . '/' . $target);
+            }
+
             // Publish assets
             $this->publishes([
-                $dir => public_path('vendor/' . $package),
+                $dir => $target,
             ], 'public');
         }
 

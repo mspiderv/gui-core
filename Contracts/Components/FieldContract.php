@@ -8,9 +8,9 @@ interface FieldContract {
     function __construct();
 
     // Get or set
-    function name($name);
-    function value($value);
-    function id($id);
+    function name($name = null);
+    function value($value = null);
+    function id($id = null);
     function disabled($disabled = null);
 
     // Getters
