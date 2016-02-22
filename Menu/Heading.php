@@ -20,7 +20,7 @@ class Heading implements HeadingContract
     // Get or set
     public function title($title = null)
     {
-        if ($title === null)
+        if (is_null($title))
         {
             return $this->title;
         }

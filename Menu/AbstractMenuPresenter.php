@@ -102,7 +102,7 @@ abstract class AbstractMenuPresenter implements MenuPresenterContract
 
     public function presentSubmenu(MenuContract $submenu)
     {
-        if ($this->submenuPresenter == null)
+        if (is_null($this->submenuPresenter))
         {
             throw new Exception('Cannot present submenu, because submenu presenter is not set.');
         }

@@ -46,7 +46,7 @@ trait FieldTrait {
      */
     public function disabled($disabled = null)
     {
-        if ($disabled == null)
+        if (is_null($disabled))
         {
             return $this->hasAttribute('disabled');
         }

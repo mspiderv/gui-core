@@ -140,7 +140,7 @@ trait AttributesTrait {
 
     public function getOrSetAttribute($variable, $value = null)
 	{
-		if ($value === null)
+		if (is_null($value))
         {
             return $this->getAttribute($variable);
         }

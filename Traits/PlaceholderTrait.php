@@ -9,9 +9,9 @@ trait PlaceholderTrait {
 	 * @param string $placeholder
 	 * @return value/string
 	 */
-	public function placeholder($placeholder)
+	public function placeholder($placeholder = null)
 	{
-		if ($placeholder == null)
+		if (is_null($placeholder))
 		{
 			return $this->getAttribute('placeholder');
 		}

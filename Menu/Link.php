@@ -21,7 +21,7 @@ class Link implements LinkContract
         $this->set('icon', $icon);
         $this->set('active', false);
 
-        if ($closure !== null)
+        if ( ! is_null($closure))
         {
             $this->sub($closure);
         }
@@ -48,7 +48,7 @@ class Link implements LinkContract
     // Get or set
     public function active($active = null)
     {
-        if ($active === null)
+        if (is_null($active))
         {
             return $this->active;
         }
@@ -80,7 +80,7 @@ class Link implements LinkContract
 
     public function getSubmenuInstance()
     {
-        if ($this->submenuInstance == null)
+        if (is_null($this->submenuInstance))
         {
             $this->submenuInstance = app('Vitlabs\GUICore\Contracts\Menu\MenuContract');
         }
