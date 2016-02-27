@@ -2,6 +2,7 @@
 
 namespace Vitlabs\GUICore\Menu;
 
+use URL;
 use Closure;
 use Vitlabs\GUICore\Contracts\Menu\LinkContract;
 use Vitlabs\GUICore\Traits\AttributesTrait;
@@ -9,7 +10,6 @@ use Vitlabs\GUICore\Traits\DataTrait;
 
 class Link implements LinkContract
 {
-
     use AttributesTrait, DataTrait;
 
     protected $submenuInstance = null;
@@ -25,6 +25,18 @@ class Link implements LinkContract
         {
             $this->sub($closure);
         }
+
+        $this->smartActive();
+    }
+
+    protected function smartActive()
+    {
+        if (URL::current() == $this->get('href'))
+        {
+            $this->set('active', true);
+        }
+
+        return true;
     }
 
     // Get or set
@@ -36,7 +48,11 @@ class Link implements LinkContract
     // Get or set
     public function href($href = null)
     {
-        return $this->getOrSet('href', $href);
+        $result = $this->getOrSet('href', $href);
+
+        $this->smartActive();
+
+        return $result;
     }
 
     // Get or set
